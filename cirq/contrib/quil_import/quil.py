@@ -67,15 +67,26 @@ class UnsupportedQuilInstruction(Exception):
 
 
 def cphase(param: float) -> CZPowGate:
-    """
-    PyQuil's CPHASE and Cirq's CZPowGate are the same up to a factor of pi.
+    """The angle parameter of pyQuil's CPHASE gate and the exponent of
+    Cirq's CZPowGate differ by a factor of pi.
+
+    Args:
+        param: Gate parameter (in radians).
+
+    Returns:
+        A CZPowGate equivalent to a CPHASE gate of given angle.
     """
     return CZPowGate(exponent=param / np.pi)
 
 
 def cphase00(phi: float) -> MatrixGate:
-    """
-    PyQuil's CPHASE00 gate can be defined using Cirq's MatrixGate.
+    """PyQuil's CPHASE00 gate can be defined using Cirq's MatrixGate.
+
+    Args:
+        phi: Gate parameter (in radians).
+
+    Returns:
+        A MatrixGate equivalent to a CPHASE00 gate of given angle.
     """
     cphase00_matrix = np.array([[np.exp(1j * phi), 0, 0, 0], [0, 1, 0, 0],
                                 [0, 0, 1, 0], [0, 0, 0, 1]])
@@ -83,8 +94,13 @@ def cphase00(phi: float) -> MatrixGate:
 
 
 def cphase01(phi: float) -> MatrixGate:
-    """
-    PyQuil's CPHASE01 gate can be defined using Cirq's MatrixGate.
+    """PyQuil's CPHASE01 gate can be defined using Cirq's MatrixGate.
+
+    Args:
+        phi: Gate parameter (in radians).
+
+    Returns:
+        A MatrixGate equivalent to a CPHASE01 gate of given angle.
     """
     cphase01_matrix = np.array([[1, 0, 0, 0], [0, np.exp(1j * phi), 0, 0],
                                 [0, 0, 1, 0], [0, 0, 0, 1]])
@@ -92,8 +108,13 @@ def cphase01(phi: float) -> MatrixGate:
 
 
 def cphase10(phi: float) -> MatrixGate:
-    """
-    PyQuil's CPHASE10 gate can be defined using Cirq's MatrixGate.
+    """PyQuil's CPHASE10 gate can be defined using Cirq's MatrixGate.
+
+    Args:
+        phi: Gate parameter (in radians).
+
+    Returns:
+        A MatrixGate equivalent to a CPHASE10 gate of given angle.
     """
     cphase10_matrix = np.array([[1, 0, 0, 0], [0, 1, 0, 0],
                                 [0, 0, np.exp(1j * phi), 0], [0, 0, 0, 1]])
@@ -101,15 +122,26 @@ def cphase10(phi: float) -> MatrixGate:
 
 
 def phase(param: float) -> ZPowGate:
-    """
-    PyQuil's PHASE and Cirq's ZPowGate are the same up to a factor of pi.
+    """The angle parameter of pyQuil's PHASE gate and the exponent of
+    Cirq's ZPowGate differ by a factor of pi.
+
+    Args:
+        param: Gate parameter (in radians).
+
+    Returns:
+        A ZPowGate equivalent to a PHASE gate of given angle.
     """
     return ZPowGate(exponent=param / np.pi)
 
 
 def pswap(phi: float) -> MatrixGate:
-    """
-    PyQuil's PSWAP gate can be defined using Cirq's MatrixGate.
+    """PyQuil's PSWAP gate can be defined using Cirq's MatrixGate.
+
+    Args:
+        phi: Gate parameter (in radians).
+
+    Returns:
+        A MatrixGate equivalent to a PSWAP gate of given angle.
     """
     pswap_matrix = np.array([
         [1, 0, 0, 0],
@@ -121,8 +153,14 @@ def pswap(phi: float) -> MatrixGate:
 
 
 def xy(param: float) -> ISwapPowGate:
-    """
-    PyQuil's XY and Cirq's ISwapPowGate are the same up to a factor of pi.
+    """The angle parameter of pyQuil's XY gate and the exponent of
+    Cirq's ISwapPowGate differ by a factor of pi.
+
+    Args:
+        param: Gate parameter (in radians).
+
+    Returns:
+        An ISwapPowGate equivalent to an XY gate of given angle.
     """
     return ISwapPowGate(exponent=param / np.pi)
 
@@ -166,8 +204,16 @@ SUPPORTED_GATES: Dict[str, Union[Gate, Callable[..., Gate]]] = {
 
 
 def circuit_from_quil(quil: str) -> Circuit:
-    """
-    Convert a Quil program to a Cirq Circuit.
+    """Convert a Quil program to a Cirq Circuit.
+
+    Args:
+        quil: The Quil program to convert.
+
+    Returns:
+        A Cirq Circuit generated from the Quil program.
+
+    References:
+        https://github.com/rigetti/pyquil
     """
     circuit = Circuit()
     defgates = {}
