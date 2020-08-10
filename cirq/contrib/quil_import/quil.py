@@ -77,9 +77,8 @@ def cphase00(phi: float) -> MatrixGate:
     """
     PyQuil's CPHASE00 gate can be defined using Cirq's MatrixGate.
     """
-    cphase00_matrix = np.array(
-        [[np.exp(1j * phi), 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
-    )
+    cphase00_matrix = np.array([[np.exp(1j * phi), 0, 0, 0], [0, 1, 0, 0],
+                                [0, 0, 1, 0], [0, 0, 0, 1]])
     return MatrixGate(cphase00_matrix)
 
 
@@ -87,9 +86,8 @@ def cphase01(phi: float) -> MatrixGate:
     """
     PyQuil's CPHASE01 gate can be defined using Cirq's MatrixGate.
     """
-    cphase01_matrix = np.array(
-        [[1, 0, 0, 0], [0, np.exp(1j * phi), 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
-    )
+    cphase01_matrix = np.array([[1, 0, 0, 0], [0, np.exp(1j * phi), 0, 0],
+                                [0, 0, 1, 0], [0, 0, 0, 1]])
     return MatrixGate(cphase01_matrix)
 
 
@@ -97,9 +95,8 @@ def cphase10(phi: float) -> MatrixGate:
     """
     PyQuil's CPHASE10 gate can be defined using Cirq's MatrixGate.
     """
-    cphase10_matrix = np.array(
-        [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, np.exp(1j * phi), 0], [0, 0, 0, 1]]
-    )
+    cphase10_matrix = np.array([[1, 0, 0, 0], [0, 1, 0, 0],
+                                [0, 0, np.exp(1j * phi), 0], [0, 0, 0, 1]])
     return MatrixGate(cphase10_matrix)
 
 
@@ -114,14 +111,12 @@ def pswap(phi: float) -> MatrixGate:
     """
     PyQuil's PSWAP gate can be defined using Cirq's MatrixGate.
     """
-    pswap_matrix = np.array(
-        [
-            [1, 0, 0, 0],
-            [0, 0, np.exp(1j * phi), 0],
-            [0, np.exp(1j * phi), 0, 0],
-            [0, 0, 0, 1],
-        ]
-    )
+    pswap_matrix = np.array([
+        [1, 0, 0, 0],
+        [0, 0, np.exp(1j * phi), 0],
+        [0, np.exp(1j * phi), 0, 0],
+        [0, 0, 0, 1],
+    ])
     return MatrixGate(pswap_matrix)
 
 
@@ -183,8 +178,7 @@ def circuit_from_quil(quil: str) -> Circuit:
         if isinstance(inst, DefGate):
             if inst.parameters:
                 raise UnsupportedQuilInstruction(
-                    "Parameterized DEFGATEs are currently unsupported."
-                )
+                    "Parameterized DEFGATEs are currently unsupported.")
             defgates[inst.name] = MatrixGate(inst.matrix)
 
         # Pass when encountering a DECLARE.
@@ -199,8 +193,7 @@ def circuit_from_quil(quil: str) -> Circuit:
             defgates_and_supported_gates = dict(**defgates, **SUPPORTED_GATES)
             if quil_gate_name not in defgates_and_supported_gates:
                 raise UnsupportedQuilGate(
-                    f"Quil gate {quil_gate_name} not supported in Cirq."
-                )
+                    f"Quil gate {quil_gate_name} not supported in Cirq.")
             cirq_gate_fn = defgates_and_supported_gates[quil_gate_name]
             if quil_gate_params:
                 circuit += cirq_gate_fn(*quil_gate_params)(*line_qubits)
@@ -211,9 +204,7 @@ def circuit_from_quil(quil: str) -> Circuit:
         elif isinstance(inst, PyQuilMeasurement):
             line_qubit = LineQubit(inst.qubit.index)
             quil_memory_reference = inst.classical_reg.out()
-            circuit += MeasurementGate(1, key=quil_memory_reference)(
-                line_qubit
-            )
+            circuit += MeasurementGate(1, key=quil_memory_reference)(line_qubit)
 
         # Raise a targeted error when encountering a PRAGMA.
         elif isinstance(inst, Pragma):
@@ -227,7 +218,6 @@ def circuit_from_quil(quil: str) -> Circuit:
         else:
             raise UnsupportedQuilInstruction(
                 f"Quil instruction {inst} of type {type(inst)}"
-                " not currently supported in Cirq."
-            )
+                " not currently supported in Cirq.")
 
     return circuit
