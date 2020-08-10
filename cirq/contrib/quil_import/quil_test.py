@@ -13,12 +13,15 @@
 # limitations under the License.
 
 import numpy as np
+import pytest
 
 from pyquil import Program
 from pyquil.simulation.tools import program_unitary
 
 from cirq import Circuit, LineQubit
 from cirq.contrib.quil_import.quil import (
+    UnsupportedQuilInstruction,
+    UnsupportedQuilGate,
     circuit_from_quil,
     cphase,
     cphase00,
@@ -148,3 +151,35 @@ def test_quil_with_defgate():
     cirq_circuit = Circuit([X(q0), Z(q0)])
     quil_circuit = circuit_from_quil(QUIL_PROGRAM_WITH_DEFGATE)
     assert np.isclose(quil_circuit.unitary(), cirq_circuit.unitary()).all()
+
+
+QUIL_PROGRAM_WITH_PARAMETERIZED_DEFGATE = """
+DEFGATE MYPHASE(%phi):
+    1,0
+    0,EXP(i*%phi)
+
+X 0
+MYPHASE 0
+"""
+
+
+def test_unsupported_quil_instruction():
+    with pytest.raises(UnsupportedQuilInstruction):
+        circuit_from_quil("NOP")
+
+    with pytest.raises(UnsupportedQuilInstruction):
+        circuit_from_quil("PRAGMA ADD-KRAUS X 0 \"(0.0 1.0 1.0 0.0)\"")
+
+    with pytest.raises(UnsupportedQuilInstruction):
+        circuit_from_quil("RESET")
+
+    with pytest.raises(UnsupportedQuilInstruction):
+        circuit_from_quil(QUIL_PROGRAM_WITH_PARAMETERIZED_DEFGATE)
+
+
+def test_unsupported_quil_gate():
+    with pytest.raises(UnsupportedQuilGate):
+        circuit_from_quil("FREDKIN 0 1 2")
+
+    with pytest.raises(UnsupportedQuilGate):
+        circuit_from_quil("TOFFOLI 0 1 2")
