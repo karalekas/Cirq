@@ -186,14 +186,7 @@ def test_i_swap_with_power():
     ))
     assert str(output) == f"""# Created using Cirq.
 
-CNOT 0 1
-H 0
-CNOT 1 0
-RZ({np.pi / 8}) 0
-CNOT 1 0
-RZ({-np.pi / 8}) 0
-H 0
-CNOT 0 1
+XY({np.pi / 4}) 0 1
 """
 
 
