@@ -368,7 +368,9 @@ def test_equivalent_unitaries():
     ]
     output = cirq.QuilOutput(operations, (q0, q1))
     program = pyquil.Program(str(output))
-    pyquil_unitary = pyquil_simulation_tools.program_unitary(program, n_qubits=2)
+    pyquil_unitary = pyquil_simulation_tools.program_unitary(program,
+                                                             n_qubits=2)
     # Qubit ordering differs between pyQuil and Cirq.
-    cirq_unitary = cirq.Circuit(cirq.SWAP(q0, q1), operations, cirq.SWAP(q0, q1)).unitary()
+    cirq_unitary = cirq.Circuit(cirq.SWAP(q0, q1), operations,
+                                cirq.SWAP(q0, q1)).unitary()
     assert np.allclose(pyquil_unitary, cirq_unitary)
