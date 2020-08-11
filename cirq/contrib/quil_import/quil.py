@@ -53,7 +53,7 @@ from cirq.ops import (
 )
 
 
-class UnsupportedQuilGate(Exception):
+class UndefinedQuilGate(Exception):
     pass
 
 
@@ -250,7 +250,7 @@ def circuit_from_quil(quil: str) -> Circuit:
             line_qubits = list(LineQubit(q.index) for q in inst.qubits)
             defgates_and_supported_gates = dict(**defgates, **SUPPORTED_GATES)
             if quil_gate_name not in defgates_and_supported_gates:
-                raise UnsupportedQuilGate(
+                raise UndefinedQuilGate(
                     f"Quil gate {quil_gate_name} not supported in Cirq.")
             cirq_gate_fn = defgates_and_supported_gates[quil_gate_name]
             if quil_gate_params:
