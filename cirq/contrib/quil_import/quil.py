@@ -88,8 +88,12 @@ def cphase00(phi: float) -> MatrixGate:
     Returns:
         A MatrixGate equivalent to a CPHASE00 gate of given angle.
     """
-    cphase00_matrix = np.array([[np.exp(1j * phi), 0, 0, 0], [0, 1, 0, 0],
-                                [0, 0, 1, 0], [0, 0, 0, 1]])
+    cphase00_matrix = np.array([
+        [np.exp(1j * phi), 0, 0, 0],
+        [0, 1, 0, 0],
+        [0, 0, 1, 0],
+        [0, 0, 0, 1]
+    ], dtype=complex)
     return MatrixGate(cphase00_matrix)
 
 
@@ -102,8 +106,12 @@ def cphase01(phi: float) -> MatrixGate:
     Returns:
         A MatrixGate equivalent to a CPHASE01 gate of given angle.
     """
-    cphase01_matrix = np.array([[1, 0, 0, 0], [0, np.exp(1j * phi), 0, 0],
-                                [0, 0, 1, 0], [0, 0, 0, 1]])
+    cphase01_matrix = np.array([
+        [1, 0, 0, 0],
+        [0, np.exp(1j * phi), 0, 0],
+        [0, 0, 1, 0],
+        [0, 0, 0, 1]
+    ], dtype=complex)
     return MatrixGate(cphase01_matrix)
 
 
@@ -116,8 +124,12 @@ def cphase10(phi: float) -> MatrixGate:
     Returns:
         A MatrixGate equivalent to a CPHASE10 gate of given angle.
     """
-    cphase10_matrix = np.array([[1, 0, 0, 0], [0, 1, 0, 0],
-                                [0, 0, np.exp(1j * phi), 0], [0, 0, 0, 1]])
+    cphase10_matrix = np.array([
+        [1, 0, 0, 0],
+        [0, 1, 0, 0],
+        [0, 0, np.exp(1j * phi), 0],
+        [0, 0, 0, 1]
+    ], dtype=complex)
     return MatrixGate(cphase10_matrix)
 
 
@@ -148,7 +160,7 @@ def pswap(phi: float) -> MatrixGate:
         [0, 0, np.exp(1j * phi), 0],
         [0, np.exp(1j * phi), 0, 0],
         [0, 0, 0, 1],
-    ])
+    ], dtype=complex)
     return MatrixGate(pswap_matrix)
 
 
