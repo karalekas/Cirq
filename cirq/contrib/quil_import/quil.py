@@ -67,8 +67,9 @@ class UnsupportedQuilInstruction(Exception):
 
 
 def cphase(param: float) -> CZPowGate:
-    """The angle parameter of pyQuil's CPHASE gate and the exponent of
-    Cirq's CZPowGate differ by a factor of pi.
+    """Returns a controlled-phase gate as a Cirq CZPowGate with exponent
+    determined by the input param. The angle parameter of pyQuil's CPHASE
+    gate and the exponent of Cirq's CZPowGate differ by a factor of pi.
 
     Args:
         param: Gate parameter (in radians).
@@ -80,7 +81,7 @@ def cphase(param: float) -> CZPowGate:
 
 
 def cphase00(phi: float) -> MatrixGate:
-    """PyQuil's CPHASE00 gate can be defined using Cirq's MatrixGate.
+    """Returns a Cirq MatrixGate for pyQuil's CPHASE00 gate.
 
     Args:
         phi: Gate parameter (in radians).
@@ -98,7 +99,7 @@ def cphase00(phi: float) -> MatrixGate:
 
 
 def cphase01(phi: float) -> MatrixGate:
-    """PyQuil's CPHASE01 gate can be defined using Cirq's MatrixGate.
+    """Returns a Cirq MatrixGate for pyQuil's CPHASE01 gate.
 
     Args:
         phi: Gate parameter (in radians).
@@ -116,7 +117,7 @@ def cphase01(phi: float) -> MatrixGate:
 
 
 def cphase10(phi: float) -> MatrixGate:
-    """PyQuil's CPHASE10 gate can be defined using Cirq's MatrixGate.
+    """Returns a Cirq MatrixGate for pyQuil's CPHASE10 gate.
 
     Args:
         phi: Gate parameter (in radians).
@@ -134,8 +135,9 @@ def cphase10(phi: float) -> MatrixGate:
 
 
 def phase(param: float) -> ZPowGate:
-    """The angle parameter of pyQuil's PHASE gate and the exponent of
-    Cirq's ZPowGate differ by a factor of pi.
+    """Returns a single-qubit phase gate as a Cirq ZPowGate with exponent
+    determined by the input param. The angle parameter of pyQuil's PHASE
+    gate and the exponent of Cirq's ZPowGate differ by a factor of pi.
 
     Args:
         param: Gate parameter (in radians).
@@ -147,7 +149,7 @@ def phase(param: float) -> ZPowGate:
 
 
 def pswap(phi: float) -> MatrixGate:
-    """PyQuil's PSWAP gate can be defined using Cirq's MatrixGate.
+    """Returns a Cirq MatrixGate for pyQuil's PSWAP gate.
 
     Args:
         phi: Gate parameter (in radians).
@@ -165,8 +167,9 @@ def pswap(phi: float) -> MatrixGate:
 
 
 def xy(param: float) -> ISwapPowGate:
-    """The angle parameter of pyQuil's XY gate and the exponent of
-    Cirq's ISwapPowGate differ by a factor of pi.
+    """Returns an ISWAP-family gate as a Cirq ISwapPowGate with exponent
+    determined by the input param. The angle parameter of pyQuil's XY gate
+    and the exponent of Cirq's ISwapPowGate differ by a factor of pi.
 
     Args:
         param: Gate parameter (in radians).
