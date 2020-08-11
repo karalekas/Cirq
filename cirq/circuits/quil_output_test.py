@@ -38,7 +38,7 @@ def test_single_gate_with_parameter():
     output = cirq.QuilOutput((cirq.X(q0)**0.5,), (q0,))
     assert (str(output) == f"""# Created using Cirq.
 
-RX({np.pi/2}) 0\n""")
+RX({np.pi / 2}) 0\n""")
 
 
 def test_single_gate_named_qubit():
@@ -54,9 +54,9 @@ def test_h_gate_with_parameter():
     output = cirq.QuilOutput((cirq.H(q0)**0.25,), (q0,))
     assert (str(output) == f"""# Created using Cirq.
 
-RY({np.pi/4}) 0
-RX({np.pi/4}) 0
-RY({-np.pi/4}) 0\n""")
+RY({np.pi / 4}) 0
+RX({np.pi / 4}) 0
+RY({-np.pi / 4}) 0\n""")
 
 
 def test_save_to_file(tmpdir):
@@ -189,9 +189,9 @@ def test_i_swap_with_power():
 CNOT 0 1
 H 0
 CNOT 1 0
-RZ({np.pi/8}) 0
+RZ({np.pi / 8}) 0
 CNOT 1 0
-RZ({-np.pi/8}) 0
+RZ({-np.pi / 8}) 0
 H 0
 CNOT 0 1
 """
@@ -209,83 +209,83 @@ DECLARE m2 BIT[1]
 DECLARE m3 BIT[3]
 
 Z 0
-RZ({5*np.pi/8}) 0
+RZ({5 * np.pi / 8}) 0
 Y 0
-RY({3*np.pi/8}) 0
+RY({3 * np.pi / 8}) 0
 X 0
-RX({7*np.pi/8}) 0
+RX({7 * np.pi / 8}) 0
 H 1
 CZ 0 1
-CPHASE({np.pi/4}) 0 1
+CPHASE({np.pi / 4}) 0 1
 CNOT 0 1
-RY({-np.pi/2}) 1
-CPHASE({np.pi/2}) 0 1
-RY({np.pi/2}) 1
+RY({-np.pi / 2}) 1
+CPHASE({np.pi / 2}) 0 1
+RY({np.pi / 2}) 1
 SWAP 0 1
-PSWAP({3*np.pi/4}) 0 1
+PSWAP({3 * np.pi / 4}) 0 1
 H 2
 CCNOT 0 1 2
 H 2
 CCNOT 0 1 2
-RZ({np.pi/8}) 0
-RZ({np.pi/8}) 1
-RZ({np.pi/8}) 2
+RZ({np.pi / 8}) 0
+RZ({np.pi / 8}) 1
+RZ({np.pi / 8}) 2
 CNOT 0 1
 CNOT 1 2
-RZ({-np.pi/8}) 1
-RZ({np.pi/8}) 2
+RZ({-np.pi / 8}) 1
+RZ({np.pi / 8}) 2
 CNOT 0 1
 CNOT 1 2
-RZ({-np.pi/8}) 2
+RZ({-np.pi / 8}) 2
 CNOT 0 1
 CNOT 1 2
-RZ({-np.pi/8}) 2
+RZ({-np.pi / 8}) 2
 CNOT 0 1
 CNOT 1 2
 H 2
-RZ({np.pi/8}) 0
-RZ({np.pi/8}) 1
-RZ({np.pi/8}) 2
+RZ({np.pi / 8}) 0
+RZ({np.pi / 8}) 1
+RZ({np.pi / 8}) 2
 CNOT 0 1
 CNOT 1 2
-RZ({-np.pi/8}) 1
-RZ({np.pi/8}) 2
+RZ({-np.pi / 8}) 1
+RZ({np.pi / 8}) 2
 CNOT 0 1
 CNOT 1 2
-RZ({-np.pi/8}) 2
+RZ({-np.pi / 8}) 2
 CNOT 0 1
 CNOT 1 2
-RZ({-np.pi/8}) 2
+RZ({-np.pi / 8}) 2
 CNOT 0 1
 CNOT 1 2
 H 2
 CSWAP 0 1 2
 X 0
 X 1
-RX({3*np.pi/4}) 0
-RX({3*np.pi/4}) 1
+RX({3 * np.pi / 4}) 0
+RX({3 * np.pi / 4}) 1
 Y 0
 Y 1
-RY({3*np.pi/4}) 0
-RY({3*np.pi/4}) 1
+RY({3 * np.pi / 4}) 0
+RY({3 * np.pi / 4}) 1
 Z 0
 Z 1
-RZ({3*np.pi/4}) 0
-RZ({3*np.pi/4}) 1
+RZ({3 * np.pi / 4}) 0
+RZ({3 * np.pi / 4}) 1
 I 0
 I 0
 I 1
 I 2
 ISWAP 2 0
-RZ({-0.111*np.pi}) 1
-RX({np.pi/4}) 1
-RZ({0.111*np.pi}) 1
-RZ({-0.333*np.pi}) 1
-RX({np.pi/2}) 1
-RZ({0.333*np.pi}) 1
-RZ({-0.777*np.pi}) 1
-RX({-np.pi/2}) 1
-RZ({0.777*np.pi}) 1
+RZ({-0.111 * np.pi}) 1
+RX({np.pi / 4}) 1
+RZ({0.111 * np.pi}) 1
+RZ({-0.333 * np.pi}) 1
+RX({np.pi / 2}) 1
+RZ({0.333 * np.pi}) 1
+RZ({-0.777 * np.pi}) 1
+RX({-np.pi / 2}) 1
+RZ({0.777 * np.pi}) 1
 WAIT
 MEASURE 0 m0[0]
 MEASURE 2 m1[0]
