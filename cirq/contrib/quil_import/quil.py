@@ -231,7 +231,7 @@ def circuit_from_quil(quil: str) -> Circuit:
         https://github.com/rigetti/pyquil
     """
     circuit = Circuit()
-    defgates = {}
+    defined_gates = SUPPORTED_GATES.copy()
     instructions = parse(quil)
 
     for inst in instructions:
@@ -240,7 +240,7 @@ def circuit_from_quil(quil: str) -> Circuit:
             if inst.parameters:
                 raise UnsupportedQuilInstruction(
                     "Parameterized DEFGATEs are currently unsupported.")
-            defgates[inst.name] = MatrixGate(inst.matrix)
+            defined_gates[inst.name] = MatrixGate(inst.matrix)
 
         # Pass when encountering a DECLARE.
         elif isinstance(inst, Declare):
@@ -251,11 +251,10 @@ def circuit_from_quil(quil: str) -> Circuit:
             quil_gate_name = inst.name
             quil_gate_params = inst.params
             line_qubits = list(LineQubit(q.index) for q in inst.qubits)
-            defgates_and_supported_gates = dict(**defgates, **SUPPORTED_GATES)
-            if quil_gate_name not in defgates_and_supported_gates:
+            if quil_gate_name not in defined_gates:
                 raise UndefinedQuilGate(
                     f"Quil gate {quil_gate_name} not supported in Cirq.")
-            cirq_gate_fn = defgates_and_supported_gates[quil_gate_name]
+            cirq_gate_fn = defined_gates[quil_gate_name]
             if quil_gate_params:
                 circuit += cirq_gate_fn(*quil_gate_params)(*line_qubits)
             else:
